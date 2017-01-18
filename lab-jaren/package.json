@@ -1,0 +1,32 @@
+{
+  "name": "lab-jaren",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "superagent": "^3.3.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
+    "debug": "^2.6.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "http-errors": "^1.5.1",
+    "mongoose": "^4.7.7",
+    "morgan": "^1.7.0"
+  }
+}
