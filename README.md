@@ -77,7 +77,7 @@ Your lab directory must include
 * Write api documetnion for your routes in your readme
 
 ## Bonus
-* **2pts** a `GET` request to `/api/simple-resource-name` with no **?id=** should retrun an array of all of the ids for that resource
+* **2pts** a `GET` request to `/api/simple-resource-name`  should retrun an array of all of the resources
  
 ## Rubric  
 * 2ps Configuration
