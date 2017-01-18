@@ -14,3 +14,10 @@ gameRouter.post('/api/games', parseJSON, function(req, res, next) {
   .then(game => res.json(game))
   .catch(next);
 });
+
+gameRouter.get('/api/games/:id', function(req, res, next) {
+  debug('GET /api/games');
+  Game.findById(req.params.id)
+  .then(game => res.json(game))
+  .catch(err => next(createError(404, err.message)));
+});

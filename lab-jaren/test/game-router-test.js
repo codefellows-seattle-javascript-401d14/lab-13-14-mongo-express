@@ -55,4 +55,40 @@ describe('testing game router', function() {
       .catch(done);
     });
   });
+
+  describe('testing GET /api/games/:id', function() {
+    beforeEach(done => {
+      new Game(mockData).save()
+      .then(game => {
+        this.tempGame = game;
+        done();
+      })
+      .catch(done);
+    });
+    it('should return a game', done => {
+      superagent.get(`${baseURL}/api/games/${this.tempGame._id}`)
+      .then(res => {
+        expect(res.status).to.equal(200);
+        expect(res.body.title).to.equal('Mario Kart: Double Dash!!');
+        expect(res.body.genre).to.equal('racing/driving');
+        expect(res.body.developer).to.equal('Nintendo EAD');
+        expect(res.body.publisher).to.equal('Nintendo of America Inc.');
+        expect(res.body.platforms).to.equal('GameCube');
+        expect(res.body.ratingESRB).to.equal('Everyone');
+        expect(res.body.releaseDate).to.equal('Nov 17, 2003');
+
+        done();
+      })
+      .catch(done);
+    });
+    it('should return a 404 because bad id', done => {
+      superagent.get(`${baseURL}/api/games/42`)
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
+        done();
+      })
+      .catch(done);
+    });
+  });
 });
