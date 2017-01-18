@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
-    "start": "node server.js"
+    "start": "./node_modules/nodemon/bin/nodemon.js server.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "express": "^4.14.0",
     "http-errors": "^1.5.1",
     "mongoose": "^4.7.7",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0"
   }
 }
