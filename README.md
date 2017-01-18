@@ -1,4 +1,4 @@
-401 JS --  Lab 11 rest api using express
+401 JS --  Lab 13 express with mongo
 ===
 
 ## Submission Instructions
