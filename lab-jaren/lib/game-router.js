@@ -28,3 +28,13 @@ gameRouter.get('/api/games', function(req, res, next) {
   .then(games => res.json(games))
   .catch(err => next(createError(404, err.message)));
 });
+
+gameRouter.delete('/api/games/:id', function(req, res, next) {
+  debug('DELETE /api/games/:id');
+  Game.findByIdAndRemove(req.params.id)
+  .then(game => {
+    res.statusCode = 204;
+    res.json(game);
+  })
+  .catch(err => next(createError(404, err.message)));
+});

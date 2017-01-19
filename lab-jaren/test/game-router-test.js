@@ -44,7 +44,7 @@ describe('testing game router', function() {
       })
       .catch(done);
     });
-    it('should return a 400 status', done => {
+    it('should return status 400 bad request', done => {
       superagent.post(`${baseURL}/api/games`)
       .send({})
       .then(done)
@@ -106,7 +106,44 @@ describe('testing game router', function() {
       .then(res => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.be.instanceof(Array);
-        expect(res.body[0]._id).to.equal(this.tempGame.id);
+        expect(res.body[0]._id).to.equal(this.tempGame._id.toString());
+        done();
+      })
+      .catch(done);
+    });
+    it('bad endpoint should return 404', done => {
+      superagent.get(`${baseURL}/api/allthegames`)
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
+        done();
+      })
+      .catch(done);
+    });
+  });
+
+  describe('testing DELETE /api/games/:id', function() {
+    before(done => {
+      new Game(mockData).save()
+      .then(game => {
+        this.tempGame = game;
+        done();
+      })
+      .catch(done);
+    });
+    it('should remove a game with status 204', done => {
+      superagent.delete(`${baseURL}/api/games/${this.tempGame._id}`)
+      .then(res => {
+        expect(res.statusCode).to.equal(204);
+        done();
+      })
+      .catch(done);
+    });
+    it('should return status 404', done => {
+      superagent.delete(`${baseURL}/api/games/42`)
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
         done();
       })
       .catch(done);
