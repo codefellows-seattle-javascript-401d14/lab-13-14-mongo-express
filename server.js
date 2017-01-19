@@ -16,6 +16,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use(require('./route/trainer-route.js'));
+app.use(require('./route/pokemon-route.js'));
 
 app.use(function(err,req,res, next){
   debug('error middleware');

@@ -50,14 +50,12 @@ describe('Testing trainer router', function(){
         name:'Ash Ketchum',
         age:16,
         hometown: 'Pallet Town',
-        numOfPokemon: 4,
       })
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal('Ash Ketchum');
         expect(res.body.age).to.equal(16);
         expect(res.body.hometown).to.equal('Pallet Town');
-        expect(res.body.numOfPokemon).to.equal(4);
         done();
       })
       .catch(done);
@@ -81,7 +79,6 @@ describe('Testing trainer router', function(){
       new Trainer({
         name: 'Brock',
         age: 17,
-        numOfPokemon: 44,
       }).save()
       .then(trainer => {
         this.tempTrainer = trainer;
@@ -104,7 +101,6 @@ describe('Testing trainer router', function(){
       new Trainer({
         name: 'Brock',
         age: 17,
-        numOfPokemon: 44,
       }).save()
      .then(trainer => {
        this.tempTrainer = trainer;
@@ -139,7 +135,6 @@ describe('Testing trainer router', function(){
       new Trainer({
         name: 'Brock',
         age: 17,
-        numOfPokemon: 44,
       }).save()
      .then(trainer => {
        this.tempTrainer = trainer;
