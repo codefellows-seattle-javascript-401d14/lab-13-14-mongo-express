@@ -25,6 +25,7 @@ app.use(cors());
 
 // load app routes
 app.use(require('./route/sport-router.js'));
+app.use(require('./route/comment-router.js'));
 
 // load app error middleware
 app.use(function(err, req, res, next){
