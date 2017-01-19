@@ -26,6 +26,15 @@ trainerRouter.get('/api/trainers/:id', function(req, res, next){
   .catch(err => next(createError(404, err.message)));
 });
 
+trainerRouter.get('/api/trainers', function(req, res,next){
+  debug('Get /api/trainers/');
+  Trainer.find({})
+  .then((trainer) => {
+    res.json(trainer);
+  })
+  .catch(err => next(createError(404), err.message));
+});
+
 trainerRouter.delete('/api/trainers/:id', function(req, res, next){
   debug('Delete /api/trainers/:id');
   Trainer.findByIdAndRemove(req.params.id)

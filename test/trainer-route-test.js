@@ -76,6 +76,29 @@ describe('Testing trainer router', function(){
       .catch(done);
     });
   });
+  describe('Testing GET for all ids', function(){
+    before(done => {
+      new Trainer({
+        name: 'Brock',
+        age: 17,
+        numOfPokemon: 44,
+      }).save()
+      .then(trainer => {
+        this.tempTrainer = trainer;
+        done();
+      })
+      .catch(done);
+    });
+    it('should return all ids in an array and status code of 200', (done) => {
+      superagent.get(`${apiURL}/api/trainers`)
+       .then(res => {
+         expect(res.status).to.equal(200);
+         expect(res.body).to.be.instanceof(Array);
+         done();
+       })
+       .catch(done);
+    });
+  });
   describe('Testing GET with vaild id', function(){
     before(done => {
       new Trainer({
