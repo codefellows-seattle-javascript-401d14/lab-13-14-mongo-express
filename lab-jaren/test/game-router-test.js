@@ -91,4 +91,25 @@ describe('testing game router', function() {
       .catch(done);
     });
   });
+
+  describe('testing GET /api/games', function() {
+    before(done => {
+      new Game(mockData).save()
+      .then(game => {
+        this.tempGame = game;
+        done();
+      })
+      .catch(done);
+    });
+    it('should return all the games', done => {
+      superagent.get(`${baseURL}/api/games`)
+      .then(res => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.be.instanceof(Array);
+        expect(res.body[0]._id).to.equal(this.tempGame.id);
+        done();
+      })
+      .catch(done);
+    });
+  });
 });

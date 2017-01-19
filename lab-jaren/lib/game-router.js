@@ -16,8 +16,15 @@ gameRouter.post('/api/games', parseJSON, function(req, res, next) {
 });
 
 gameRouter.get('/api/games/:id', function(req, res, next) {
-  debug('GET /api/games');
+  debug('GET /api/games/:id');
   Game.findById(req.params.id)
   .then(game => res.json(game))
+  .catch(err => next(createError(404, err.message)));
+});
+
+gameRouter.get('/api/games', function(req, res, next) {
+  debug('GET /api/games');
+  Game.find({})
+  .then(games => res.json(games))
   .catch(err => next(createError(404, err.message)));
 });
