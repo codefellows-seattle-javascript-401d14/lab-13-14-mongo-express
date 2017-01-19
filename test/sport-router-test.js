@@ -96,6 +96,11 @@ describe('testing DELETE /api/sports', function(){
     })
     .catch(done);
   });
+  afterEach((done) => {
+    Sport.remove({})
+    .then(() => done())
+    .catch(done);
+  });
 
   it('should delete a sport', (done) => {
     superagent.delete(`${baseURL}/api/sports/${this.tempSport._id}`)
@@ -118,35 +123,40 @@ describe('testing DELETE /api/sports', function(){
 });
 
 
-// describe('testing GET find /api/sports/', function(){
-//   before(done => {
-//     new Sport({sport: 'football', announcer: 'john lynch', network: 'fox'}).save()
-//       .then(sport => {
-//         this.tempSport = sport;
-//         done();
-//       })
-//       .catch(done);
-//   });
-//   it('should return all data sport', (done) => {
-//     superagent.get(`${baseURL}/api/sports`)
-//       .then(res => {
-//         expect(res.status).to.equal(200);
-//         expect(res.body).to.be.instanceof(Array);
-//         console.log(this.tempSport._id);
-//         console.log(res.body[0]._id);
-//         expect(res.body[0]._id).to.equal(this.tempSport._id.toString());
-//         done();
-//       })
-//       .catch(done);
-//   });
-//
-//   it('should return a 404 due to bad id', (done) => {
-//     superagent.get(`${baseURL}/api/sports`)
-//       .then(done)
-//       .catch(err => {
-//         expect(err.status).to.equal(404);
-//         done();
-//       })
-//       .catch(done);
-//   });
-// });
+describe('testing GET find /api/sports/', function(){
+  before(done => {
+    new Sport({sport: 'football', announcer: 'john lynch', network: 'fox'}).save()
+      .then(sport => {
+        this.tempSport = sport;
+        done();
+      })
+      .catch(done);
+  });
+  afterEach((done) => {
+    Sport.remove({})
+    .then(() => done())
+    .catch(done);
+  });
+  it('should return all data sport', (done) => {
+    superagent.get(`${baseURL}/api/sports`)
+      .then(res => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.instanceof(Array);
+        console.log(this.tempSport._id);
+        console.log(res.body[0]._id);
+        expect(res.body[0]._id).to.equal(this.tempSport._id.toString());
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should return a 404 due to bad enpoint', (done) => {
+    superagent.get(`${baseURL}/api/sportwut`)
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
+        done();
+      })
+      .catch(done);
+  });
+});

@@ -37,7 +37,7 @@ jspm_packages
 .node_repl_history
 
 
-.db
+db
 .env
 
 # Created by https://www.gitignore.io/api/osx,windows,linux,git,node

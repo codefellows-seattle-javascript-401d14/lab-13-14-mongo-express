@@ -23,12 +23,12 @@ sportRouter.get('/api/sports/:id', function(req, res, next){
 });
 
 sportRouter.delete('/api/sports/:id', function(req, res, next){
-  debug('DELETE /ap/sports/:id');
+  debug('DELETE /api/sports/:id');
   Sport.findByIdAndRemove(req.params.id)
-  .then(sport =>  {
-    res.statusCode = 204;
-    res.json(sport);
+  .then(() =>  {
+    res.status(204).send();
   })
+
   .catch(err => next(createError(404, err.message)));
 });
 
