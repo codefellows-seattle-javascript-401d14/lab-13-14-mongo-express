@@ -147,7 +147,7 @@ describe('Testing trainer router', function(){
      })
      .catch(done);
     });
-    it('should return status code of 200', (done) => {
+    it('should return status code of 204', (done) => {
       superagent.delete(`${apiURL}/api/trainers/${this.tempTrainer._id}`)
       .then(res => {
         expect(res.status).to.equal(204);
