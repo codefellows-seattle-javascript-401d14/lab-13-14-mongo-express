@@ -10,7 +10,30 @@
 
 
 ##  Documentation  
-* This project builds an http server and utilizes mongo and mongoose as a database.
+* This project builds an http server and utilizes express, mongo and mongoose as a server, a database and an ORM. This REST API allows users to make http requests with data about Trainers. There is also a second resource that was added of Pokemon that is the child of Trainers.
 
 ## Usage
-* To use this program you must first open a shell window. Within the shell window, you initiate the mongodb by typing the command `mongod --dbpath ./db`, after that, you must open a new terminal window and then type the command `mongo` and start the server with node, and from there you should be able create http request, such as GET, SET, and DELETE. 
+* Open terminal and type command `node server.js`
+
+* You will now be able to make requests using CRUD operations.
+
+###HTTP requests for Trainers
+* POST: `http POST :4000/api/trainers name="" age= `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
+
+* GET:  `http GET :4000/api/trainers/:id `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
+
+* DELETE:  `http DELETE :4000/api/trainers/:id `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
+
+
+###HTTP requests for Pokemon
+* POST: `http POST :4000/api/pokemons name="" type="" pokedexNum="" `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
+
+* GET:  `http GET :4000/api/pokemons/:id `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
+
+* DELETE:  `http DELETE :4000/api/pokemons/:id `
+  if successful, will return with `200` status code, otherwise `400` for bad request, or `404` for not found
