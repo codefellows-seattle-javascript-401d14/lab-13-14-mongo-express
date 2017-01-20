@@ -51,8 +51,8 @@ describe('testing thundercat router', function(){
   describe('testing GET /api/thundercats/:id', function(){
     beforeEach(done => {
       new Thundercat({name: 'snarf',origin: 'thundera', group: 'thundercats', weapon: 'none'}).save()
-     .then(list => {
-       this.tempKitty = list;
+     .then(thundercat => {
+       this.tempKitty = thundercat;
        done();
      })
      .catch(done);

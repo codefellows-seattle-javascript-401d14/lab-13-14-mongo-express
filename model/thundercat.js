@@ -8,6 +8,7 @@ const thundercatSchema = mongoose.Schema({
   group: {type: String, required: true},
   weapon: {type: String, required: true},
   created: {type: Date, required: true, default: Date.now},
+  characters: [{type: mongoose.Schema.Types.ObjectId, ref: 'character'}],
 });
 
 

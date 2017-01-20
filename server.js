@@ -19,16 +19,19 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(require('./router/thundercat-router'));
+app.use(require('./router/character-router')); //new addition for individiual characters
+
 
 app.use(function(err, req, res, next){
   debug('error middleware');
-  console.error(err.message);
   if(err.status){
     return res.status(err.status).send();
   }
+
   if(err.name == 'ValidationError'){
     return res.status(400).send();
   }
+
   if(err.name == 'MongoError' && err.message.startsWith('E11000 duplicate')){
     return res.status(409).send();
   }
