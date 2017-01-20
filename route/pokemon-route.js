@@ -26,6 +26,15 @@ pokemonRouter.get('/api/pokemons/:id', function(req,res,next){
   .catch(err => next(createError(404,err.message)));
 });
 
+pokemonRouter.get('/api/pokemons', function(req, res,next){
+  debug('Get /api/pokemons');
+  Pokemon.find({})
+  .then((trainer) => {
+    res.json(trainer);
+  })
+  .catch(err => next(createError(404), err.message));
+});
+
 pokemonRouter.delete('/api/pokemons/:id', function(req,res,next){
   debug('Delete /api/pokemons/:id');
   Pokemon.findByIdAndRemove(req.params.id)

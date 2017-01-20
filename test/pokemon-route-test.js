@@ -137,6 +137,16 @@ describe('Testing pokemon router', function(){
       .catch(done);
     });
 
+    it('should return all ids in an array and status code of 200', (done) => {
+      superagent.get(`${apiURL}/api/pokemons`)
+       .then(res => {
+         expect(res.status).to.equal(200);
+         expect(res.body).to.be.instanceof(Array);
+         done();
+       })
+       .catch(done);
+    });
+
   });
 
   describe('Testing DELETE /api/pokemons:id', function(){
