@@ -21,17 +21,10 @@ describe('testing brewery router', function() {
     it('should create a brewery', (done) => {
       superagent.post(`${baseURL}/api/breweries`)
       .send({
-        nameOfBrewery: 'Cloudburst',
-        nameOfBeer: 'Humble Mumble IPA',
-        typeOfBeer: 'IPA',
-        percentOfBeer: 7.4,
-      })
+        nameOfBrewery: 'Cloudburst'})
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.nameOfBrewery).to.equal('Cloudburst');
-        expect(res.body.nameOfBeer).to.equal('Humble Mumble IPA');
-        expect(res.body.typeOfBeer).to.equal('IPA');
-        expect(res.body.percentOfBeer).to.equal(7.4);
         expect(Boolean(res.body.created)).to.equal(true);
         done();
       })
@@ -54,11 +47,7 @@ describe('testing brewery router', function() {
 describe('test GET /api/breweries/:id', function() {
   beforeEach(done => {
     new Brewery({
-      nameOfBrewery: 'randomBrewery',
-      nameOfBeer: 'randomBeer',
-      typeOfBeer: 'any',
-      percentOfBeer: 0.0,
-    }).save()
+      nameOfBrewery: 'randomBrewery'}).save()
     .then(brewery => {
       this.tempbrewery = brewery;
       done();
@@ -72,9 +61,6 @@ describe('test GET /api/breweries/:id', function() {
       expect(res.status).to.equal(200);
       expect(res.body._id).to.equal(this.tempbrewery._id.toString());
       expect(res.body.nameOfBrewery).to.equal('randomBrewery');
-      expect(res.body.nameOfBeer).to.equal('randomBeer');
-      expect(res.body.typeOfBeer).to.equal('any');
-      expect(res.body.percentOfBeer).to.equal(0.0);
       expect(Boolean(res.body.created)).to.equal(true);
       done();
     })
@@ -82,7 +68,6 @@ describe('test GET /api/breweries/:id', function() {
   });
 
   it('on bad id should return 404 error', (done) => {
-    console.log(this.tempbrewery);
     superagent.get(`${baseURL}/api/brewies/3456`)
     .then(done)
     .catch(err => {
@@ -96,11 +81,7 @@ describe('test GET /api/breweries/:id', function() {
 describe('testing DELETE /api/brewies/:id', function() {
   beforeEach(done => {
     new Brewery({
-      nameOfBrewery: 'randomBrewery',
-      nameOfBeer: 'randomBeer',
-      typeOfBeer: 'any',
-      percentOfBeer: 0.0,
-    }).save()
+      nameOfBrewery: 'randomBrewery'}).save()
     .then(brewery => {
       this.tempbrewery = brewery;
       done();
@@ -108,8 +89,8 @@ describe('testing DELETE /api/brewies/:id', function() {
     .catch(done);
   });
 
-  it('should return valid request response with 204 status', (done) => {
-    superagent.delete(`${baseURL}/api/breweries/${this.tempbrewery._id}`)
+  it('should return valid request with 204 status', (done) => {
+    superagent.delete(`${baseURL}/api/breweries/${this.tempbrewery._id.toString()}`)
     .then(res => {
       expect(res.status).to.equal(204);
       done();
@@ -118,7 +99,7 @@ describe('testing DELETE /api/brewies/:id', function() {
   });
 
   it('should return a 404 on invalid input', (done) => {
-    superagent.delete(`${baseURL}/api/breweries/54321`)
+    superagent.delete(`${baseURL}/api/breweries/32145`)
     .then(done)
     .catch(err => {
       expect(err.status).to.equal(404);
@@ -132,11 +113,7 @@ describe('testing DELETE /api/brewies/:id', function() {
 describe('test GET /api/breweries', function() {
   beforeEach(done => {
     new Brewery({
-      nameOfBrewery: 'randomBrewery',
-      nameOfBeer: 'randomBeer',
-      typeOfBeer: 'any',
-      percentOfBeer: 0.0,
-    }).save()
+      nameOfBrewery: 'randomBrewery'}).save()
     .then(brewery => {
       this.tempbrewery = brewery;
       done();

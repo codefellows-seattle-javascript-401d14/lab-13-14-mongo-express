@@ -2,13 +2,11 @@
 
 const mongoose = require('mongoose');
 
-const listSchema = mongoose.Schema({
+const brewerySchema = mongoose.Schema({
   nameOfBrewery: {type: String, required: true},
-  nameOfBeer: {type: String, required: true},
-  typeOfBeer:{type: String, required: true},
-  percentOfBeer: {type: Number, required: true},
+  beers: [{type: mongoose.Schema.Types.ObjectId, ref: 'beer'}],
   created: {type: Date, required: true, default: Date.now},
 });
 
 //creates breweries collection and brewery list constructor
-module.exports = mongoose.model('list', listSchema);
+module.exports = mongoose.model('brewery', brewerySchema);

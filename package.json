@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js",
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "debug": "DEBUG=beer* ./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",

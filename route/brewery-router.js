@@ -5,7 +5,7 @@ const Brewery = require('../model/brewery.js');
 const jsonParser = require('body-parser').json();
 const breweryRouter = module.exports = new Router();
 const createError = require('http-errors');
-const debug = require('debug')('noteapp:list-router');
+const debug = require('debug')('breweryapp:brewery-router');
 
 breweryRouter.post('/api/breweries', jsonParser, function(req, res, next) {
   debug('POST /api/breweries');
@@ -24,9 +24,8 @@ breweryRouter.get('/api/breweries/:id', function(req, res, next) {
 breweryRouter.delete('/api/breweries/:id', function(req, res, next) {
   debug('DELETE /api/breweries/id');
   Brewery.findByIdAndRemove(req.params.id)
-  .then(brewery => {
-    res.statusCode = 204;
-    res.json(brewery);
+  .then(() => {
+    res.status(204).send();
   })
   .catch(err => next(createError(404, err.message)));
 });
