@@ -17,7 +17,7 @@ superRouter.post('/api/superheroes', jsonParser, function(req, res, next) {
 
 superRouter.get('/api/superheroes/:id', function(req, res, next) {
   debug('GET /api/superheroes/:id');
-  Superhero.findById(req.params.id)
+  Superhero.findById(req.params._id)
   .then(superheroes => res.json(superheroes))
   .catch(err => next(createError(404, err.message)));
 });
@@ -25,16 +25,14 @@ superRouter.get('/api/superheroes/:id', function(req, res, next) {
 superRouter.get('/api/superheroes', (req, res, next) => {
   debug('GET /api/superheroes');
   Superhero.find({})
+  .populate('villains')
   .then(superheroes => res.json(superheroes))
   .catch(err => next(createError(404, err.message)));
 });
 
 superRouter.delete('/api/superheroes/:id', (req, res, next) => {
   debug('DELETE /api/superheroes/:id');
-  Superhero.findByIdAndRemove(req.params.id)
-  .then(superheroes => {
-    res.statusCode =204;
-    res.json(superheroes);
-  })
+  Superhero.findByIdAndRemove(req.params._id)
+  .then(() =>  res.status(204).send())
   .catch(err => next(createError(404, err.message)));
 });
