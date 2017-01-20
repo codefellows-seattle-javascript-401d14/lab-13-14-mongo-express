@@ -8,33 +8,33 @@ const debug = require('debug')('superApp: routes-superhero');
 
 const superRouter = module.exports = new Router();
 
-superRouter.post('/api/superheros', jsonParser, function(req, res, next) {
-  debug('POST /api/superheros');
+superRouter.post('/api/superheroes', jsonParser, function(req, res, next) {
+  debug('POST /api/superheroes');
   new Superhero(req.body).save()
   .then(superhero => res.json(superhero))
   .catch(next);
 });
 
-superRouter.get('/api/superheros/:id', function(req, res, next) {
-  debug('GET /api/superheros/:id');
+superRouter.get('/api/superheroes/:id', function(req, res, next) {
+  debug('GET /api/superheroes/:id');
   Superhero.findById(req.params.id)
-  .then(superheros => res.json(superheros))
+  .then(superheroes => res.json(superheroes))
   .catch(err => next(createError(404, err.message)));
 });
 
-superRouter.get('/api/superheros', (req, res, next) => {
-  debug('GET /api/superheros');
+superRouter.get('/api/superheroes', (req, res, next) => {
+  debug('GET /api/superheroes');
   Superhero.find({})
-  .then(superheros => res.json(superheros))
+  .then(superheroes => res.json(superheroes))
   .catch(err => next(createError(404, err.message)));
 });
 
-superRouter.delete('/api/superheros/:id', (req, res, next) => {
-  debug('DELETE /api/superheros/:id');
+superRouter.delete('/api/superheroes/:id', (req, res, next) => {
+  debug('DELETE /api/superheroes/:id');
   Superhero.findByIdAndRemove(req.params.id)
-  .then(superheros => {
+  .then(superheroes => {
     res.statusCode =204;
-    res.json(superheros);
+    res.json(superheroes);
   })
   .catch(err => next(createError(404, err.message)));
 });

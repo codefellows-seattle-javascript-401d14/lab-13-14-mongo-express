@@ -17,9 +17,9 @@ describe('testing superRouter', function() {
     .then(() => done())
     .catch(done);
   });
-  describe('testing POST /api/superheros', function() {
+  describe('testing POST /api/superheroes', function() {
     it('should create an superhero', (done) => {
-      superagent.post(`${baseURL}/api/superheros`)
+      superagent.post(`${baseURL}/api/superheroes`)
       .send(tempHero)
       .then(res => {
         expect(res.status).to.equal(200);
@@ -31,7 +31,7 @@ describe('testing superRouter', function() {
       .catch(done);
     });
     it('should return 400 status', done => {
-      superagent.post(`${baseURL}/api/superheros`)
+      superagent.post(`${baseURL}/api/superheroes`)
         .send({})
         .then(done)
           .catch(err => {
@@ -42,7 +42,7 @@ describe('testing superRouter', function() {
     });
   });
 
-  describe('testing GET /api/superheros/:id', function() {
+  describe('testing GET /api/superheroes/:id', function() {
     beforeEach(done => {
       new Superhero(tempHero).save()
       .then(superhero => {
@@ -52,7 +52,7 @@ describe('testing superRouter', function() {
       .catch(done);
     });
     it('should return a superhero', done => {
-      superagent.get(`${baseURL}/api/superheros/${this.tempHero._id}`)
+      superagent.get(`${baseURL}/api/superheroes/${this.tempHero._id}`)
         .then(res => {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal((this.tempHero._id).toString());
@@ -64,7 +64,7 @@ describe('testing superRouter', function() {
       .catch(done);
     });
     it('should return a 404 due to bad id', (done) => {
-      superagent.get(`${baseURL}/api/superheros/13`)
+      superagent.get(`${baseURL}/api/superheroes/13`)
         .then(done)
           .catch(err => {
             expect(err.status).to.equal(404);
@@ -73,7 +73,7 @@ describe('testing superRouter', function() {
           .catch(done);
     });
   });
-  describe('testing DELETE /api/superheros/:id', function() {
+  describe('testing DELETE /api/superheroes/:id', function() {
     beforeEach(done => {
       this.tempHero = new Superhero({name: 'Superman', power: 'flight'}).save()
         .then(superhero => {
@@ -88,7 +88,7 @@ describe('testing superRouter', function() {
         .catch(done);
     });
     it('should delete an superhero', (done) => {
-      superagent.delete(`${baseURL}/api/superheros/${this.tempHero._id}`)
+      superagent.delete(`${baseURL}/api/superheroes/${this.tempHero._id}`)
         .then(res => {
           expect(res.status).to.equal(204);
           done();
@@ -96,7 +96,7 @@ describe('testing superRouter', function() {
         .catch(done);
     });
     it('should return 404 status', (done) => {
-      superagent.delete(`${baseURL}/api/superheros/13`)
+      superagent.delete(`${baseURL}/api/superheroes/13`)
         .then(done)
         .catch(err => {
           expect(err.status).to.equal(404);
@@ -105,7 +105,7 @@ describe('testing superRouter', function() {
         .catch(done);
     });
   });
-  describe('testing GET /api/superheros', function(){
+  describe('testing GET /api/superheroes', function(){
     beforeEach(done => {
       this.tempHero = new Superhero({name: 'Superman', power: 'flight'}).save()
       .then(superhero => {
@@ -119,8 +119,8 @@ describe('testing superRouter', function() {
         .then(() => done())
         .catch(done);
     });
-    it('should return all superheros', (done) => {
-      superagent.get(`${baseURL}/api/superheros`)
+    it('should return all superheroes', (done) => {
+      superagent.get(`${baseURL}/api/superheroes`)
         .then(res => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.instanceof(Array);
