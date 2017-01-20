@@ -151,6 +151,6 @@ describe('testing character router', function(){
   });
 
 
-console.log('THUNDER THUNDER THUNDER THUNDERCATS!!!!');
+  console.log('THUNDER, THUNDER, THUNDER, THUNDERCATS, HOOOOO!!!!');
 
 });
