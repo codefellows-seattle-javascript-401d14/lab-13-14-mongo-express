@@ -6,7 +6,7 @@ const superSchema = mongoose.Schema({
   power: {type: String, required: true},
   createdAt: {type: Date, required: true, default: Date.now},
   updatedAt: {type: Date, required: true, default: Date.now},
-  villians: [{type: mongoose.Schema.Types.ObjectId, ref: 'villain'}],
+  villains: [{type: mongoose.Schema.Types.ObjectId, ref: 'villain'}],
 });
 
 module.exports = mongoose.model('superhero', superSchema);

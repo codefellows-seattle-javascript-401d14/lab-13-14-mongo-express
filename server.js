@@ -11,7 +11,8 @@ mongoose.Promise = require('bluebird');
 mongoose.connect(process.env.MONGODB_URI);
 app.use(morgan('dev'));
 app.use(cors());
-app.use(require('./routes/superRouter.js'));
+app.use(require('./routes/superRouter'));
+app.use(require('./routes/villainRouter'));
 
 app.use(function(err, req, res, next){
   debug('error middleware');

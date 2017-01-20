@@ -20,4 +20,4 @@ villainSchema.pre('save', function(next) {
   .then(() => next())
   .catch(err => next(createError(404, err.message)));
 });
-module.exports = mongoose.model('villian', villainSchema);
+module.exports = mongoose.model('villain', villainSchema);
