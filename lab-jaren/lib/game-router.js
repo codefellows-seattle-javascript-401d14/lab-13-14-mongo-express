@@ -2,6 +2,7 @@
 
 const Router = require('express').Router;
 const Game = require('../model/game.js');
+//const Device = require('../model/device.js');
 const parseJSON = require('body-parser').json();
 const createError = require('http-errors');
 const debug = require('debug')('gameapp:game-router');
@@ -32,9 +33,6 @@ gameRouter.get('/api/games', function(req, res, next) {
 gameRouter.delete('/api/games/:id', function(req, res, next) {
   debug('DELETE /api/games/:id');
   Game.findByIdAndRemove(req.params.id)
-  .then(game => {
-    res.statusCode = 204;
-    res.json(game);
-  })
+  .then(() => res.status(204).send())
   .catch(err => next(createError(404, err.message)));
 });

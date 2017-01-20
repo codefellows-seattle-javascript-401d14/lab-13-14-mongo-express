@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGODB_URI);
 app.use(morgan('dev'));
 app.use(cors());
 
+app.use(require('./lib/device-router.js'));
 app.use(require('./lib/game-router.js'));
 
 app.use(function(err, req, res, next) {
