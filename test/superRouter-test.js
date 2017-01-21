@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+require('./mockEnv');
 const superagent = require('superagent');
 const expect = require('chai').expect;
 const Superhero = require('../model/Superhero');
@@ -8,24 +8,23 @@ const baseURL = `http://localhost:${process.env.PORT}`;
 require('../server');
 
 describe('testing superRouter', function() {
-  let tempHero = {
-    name: 'Superman',
-    power: 'flight',
-  };
   afterEach((done) => {
     Superhero.remove({})
     .then(() => done())
     .catch(done);
   });
   describe('testing POST /api/superheroes', function() {
-    it('should create an superhero', (done) => {
+    it('should create a superhero', (done) => {
       superagent.post(`${baseURL}/api/superheroes`)
-      .send(tempHero)
+      .send({
+        name: 'Superman',
+        power: 'flight',
+      })
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal('Superman');
         expect(res.body.power).to.equal('flight');
-        expect(Boolean(res.body._id)).to.equal(true);
+        expect(Boolean(res.body.createdAt)).to.equal(true);
         done();
       })
       .catch(done);
@@ -34,8 +33,8 @@ describe('testing superRouter', function() {
       superagent.post(`${baseURL}/api/superheroes`)
         .send({})
         .then(done)
-          .catch(err => {
-            expect(err.status).to.equal(400);
+          .catch(res => {
+            expect(res.status).to.equal(400);
             done();
           })
           .catch(done);
@@ -44,12 +43,12 @@ describe('testing superRouter', function() {
 
   describe('testing GET /api/superheroes/:id', function() {
     beforeEach(done => {
-      new Superhero(tempHero).save()
-      .then(superhero => {
-        this.tempHero = superhero;
-        done();
-      })
-      .catch(done);
+      new Superhero({name: 'Superman', power: 'flight'}).save()
+        .then(superhero => {
+          this.tempHero = superhero;
+          done();
+        })
+        .catch(done);
     });
     it('should return a superhero', done => {
       superagent.get(`${baseURL}/api/superheroes/${this.tempHero._id}`)
@@ -66,28 +65,23 @@ describe('testing superRouter', function() {
     it('should return a 404 due to bad id', (done) => {
       superagent.get(`${baseURL}/api/superheroes/13`)
         .then(done)
-          .catch(err => {
-            expect(err.status).to.equal(404);
+          .catch(res => {
+            expect(res.status).to.equal(404);
             done();
           })
           .catch(done);
     });
   });
   describe('testing DELETE /api/superheroes/:id', function() {
-    beforeEach(done => {
-      this.tempHero = new Superhero({name: 'Superman', power: 'flight'}).save()
+    before(done => {
+      new Superhero({name: 'Superman', power: 'flight'}).save()
         .then(superhero => {
           this.tempHero = superhero;
           done();
         })
         .catch(done);
     });
-    afterEach((done) => {
-      Superhero.remove({})
-        .then(() => done())
-        .catch(done);
-    });
-    it('should delete an superhero', (done) => {
+    it('should delete a superhero', (done) => {
       superagent.delete(`${baseURL}/api/superheroes/${this.tempHero._id}`)
         .then(res => {
           expect(res.status).to.equal(204);
@@ -98,44 +92,37 @@ describe('testing superRouter', function() {
     it('should return 404 status', (done) => {
       superagent.delete(`${baseURL}/api/superheroes/13`)
         .then(done)
-        .catch(err => {
-          expect(err.status).to.equal(404);
+        .catch(res => {
+          expect(res.status).to.equal(404);
           done();
         })
         .catch(done);
     });
   });
   describe('testing GET /api/superheroes', function(){
-    beforeEach(done => {
-      this.tempHero = new Superhero({name: 'Superman', power: 'flight'}).save()
+    before(done => {
+      new Superhero({name: 'Superman', power: 'flight'}).save()
       .then(superhero => {
         this.tempHero = superhero;
         done();
       })
       .catch(done);
     });
-    afterEach((done) => {
-      Superhero.remove({})
-        .then(() => done())
-        .catch(done);
-    });
     it('should return all superheroes', (done) => {
       superagent.get(`${baseURL}/api/superheroes`)
         .then(res => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.instanceof(Array);
-          console.log(this.tempHero._id);
-          console.log(res.body[0]._id);
           expect(res.body[0]._id).to.equal(this.tempHero._id.toString());
           done();
         })
         .catch(done);
     });
     it('should return a 404 due to bad resource', (done) => {
-      superagent.get(`${baseURL}/api/superhero/22`)
+      superagent.get(`${baseURL}/api/superhero/13`)
         .then(done)
-        .catch(err => {
-          expect(err.status).to.equal(404);
+        .catch(res => {
+          expect(res.status).to.equal(404);
           done();
         })
         .catch(done);
