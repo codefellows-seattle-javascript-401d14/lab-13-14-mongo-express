@@ -87,7 +87,6 @@ describe('testing GET Route', function(){
     .catch(done);
   });
 });
-
 //*******************DELETE TEST********************
 describe('testing DELETE Route', function(){
   beforeEach((done) => {
@@ -106,11 +105,22 @@ describe('testing DELETE Route', function(){
   it.only('should delete a soda with valid ID', (done) =>{
     superagent.delete(`${baseURL}/api/soda/${this.fakeSoda._id}`)
     .then(res => {
-      
       expect(res.status).to.equal(204);
+      expect(res.body._id).to.equal(this.fakeSoda._id.toString());
+      expect(res.body.brand).to.equal('Diet Pepsi');
       done();
     })
     .catch(done);
+  });
+  it('should respond with 404 if bad delete', (done) => {
+    superagent.delete(`${baseURL}/api/soda/123234`)
+    .then(done)
+    .catch(err => {
+      expect(err.status).to.equal(404);
+      done();
+    })
+    .catch(done);
+
   });
 
 
