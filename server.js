@@ -5,10 +5,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
-// const personRouter =
-// require('./lib/person-router');
-// const debug = require('debug');
-
 let app = express();
 
 //connect to databse

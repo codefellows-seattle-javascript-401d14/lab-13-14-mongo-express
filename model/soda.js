@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 
 const sodaSchema = mongoose.Schema({
 
-  brand: {Type: String, required: true},
-  calories: {Type: Number, required: true},
-  diet: {Type: Boolean, required: true },
-  taste: {Type: String, required: true},
+  brand: {type: String,required: true},
+  calories: {type: Number, required: true},
+  diet: {type: Boolean, required: true },
+  taste: {type: String, required: true},
 });
 
 module.exports = mongoose.model('soda', sodaSchema);
