@@ -37,10 +37,7 @@ describe('should return a soda with a valid ID', function(){
     it('should return a 400 status',(done) => {
       superagent.post(`${baseURL}/api/soda`)
       .send({
-        // brand: 'RC',
-        // calories: 230,
-        // diet: true,
-        // taste: 'too sweet',
+        brand: 'RC',
       })
     .then(done)
     .catch(err => {
