@@ -16,7 +16,6 @@ mongoose.connect(process.env.MONGODB_URI);
 //dont forget this step!!!
 app.use(require('./lib/soda-router'));
 
-
 app.use(function(err, req, res, next){
   debug('error middleware');
   console.error(err.message);

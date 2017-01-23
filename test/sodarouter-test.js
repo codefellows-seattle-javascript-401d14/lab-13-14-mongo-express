@@ -8,7 +8,7 @@ require('../server');
 const baseURL = `http://localhost:${process.env.PORT}`;
 
 //*****************POST TESTING************************
-describe('should return a soda with a valid ID', function(){
+describe('Testing Post route', function(){
   afterEach((done) => {
     Soda.remove({})
     .then( () => done())
@@ -47,4 +47,76 @@ describe('should return a soda with a valid ID', function(){
     .catch(done);
     }); //end of it block
   });
+});
+
+//*************GET TEST**************************
+describe('testing GET Route', function(){
+  beforeEach((done) => {
+    new Soda ({
+      brand: 'Diet Pepsi',
+      calories: 1,
+      diet: true,
+      taste: 'ewwwww',
+    }).save()
+    .then(soda => {
+      this.fakeSoda = soda;
+      done();
+    })
+    .catch(done);
+  });
+  it('should return a soda with valid ID', (done) => {
+    superagent.get(`${baseURL}/api/soda/${this.fakeSoda._id}`)
+    .then(res => {
+      expect(res.status).to.equal(200);
+      expect(res.body._id).to.equal(this.fakeSoda._id.toString());
+      expect(res.body.brand).to.equal('Diet Pepsi');
+      expect(res.body.calories).to.equal(1);
+      expect(res.body.diet).to.equal(true);
+      expect(res.body.taste).to.equal('ewwwww');
+      done();
+    })
+    .catch(done);
+  });//end of it block
+  it('should return a 404 because of bad id', (done) => {
+    superagent.get(`${baseURL}/api/soda/123234`)
+    .then(done)
+    .catch(err => {
+      expect(err.status).to.equal(404);
+      done();
+    })
+    .catch(done);
+  });
+});
+
+//*******************DELETE TEST********************
+describe('testing DELETE Route', function(){
+  beforeEach((done) => {
+    new Soda ({
+      brand: 'Diet Pepsi',
+      calories: 1,
+      diet: true,
+      taste: 'ewwwww',
+    }).save()
+    .then(soda => {
+      this.fakeSoda = soda;
+      done();
+    })
+    .catch(done);
+  });
+  it.only('should delete a soda with valid ID', (done) =>{
+    superagent.delete(`${baseURL}/api/soda/${this.fakeSoda._id}`)
+    .then(res => {
+      
+      expect(res.status).to.equal(204);
+      done();
+    })
+    .catch(done);
+  });
+
+
+
+
+
+
+
 });
