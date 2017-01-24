@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URI);
 
 //dont forget this step!!!
 app.use(require('./lib/soda-router'));
+app.use(require('./lib/distributer-router'));
 
 app.use(function(err, req, res, next){
   debug('error middleware');
@@ -37,5 +38,5 @@ app.use(function(err, req, res, next){
 });
 
 app.listen(PORT , () => {
-  console.log('Lab 13/14 Server up!');
+  console.log('Lab 14 Server up!');
 });
