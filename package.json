@@ -1,0 +1,40 @@
+{
+  "name": "lab-13-14-mongo-express",
+  "version": "0.0.1",
+  "description": "lab-gnoevil 13-14",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+     "start": "./node_modules/nodemon/bin/nodemon.js",
+     "test": "./node_modules/mocha/bin/mocha"
+   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnoevil/lab-13-14-mongo-express.git"
+  },
+  "author": "geno.guerrero@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gnoevil/lab-13-14-mongo-express/issues"
+  },
+  "homepage": "https://github.com/gnoevil/lab-13-14-mongo-express#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
+    "debug": "^2.6.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "http-errors": "^1.5.1",
+    "mongoose": "^4.7.7",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "superagent": "^3.3.2"
+  }
+}
