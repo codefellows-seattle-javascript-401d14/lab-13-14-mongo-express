@@ -105,8 +105,51 @@ describe('testing GET api/distributer/:id', function() {
     })
     .catch(done);
   });//end of it block
-  it.only('should return a 404 because of bad id', (done) => {
+  it('should return a 404 because of bad id', (done) => {
     superagent.get(`${baseURL}/api/distributer/badID345345`)
+    .then(done)
+    .catch(err => {
+      expect(err.status).to.equal(404);
+      done();
+    })
+    .catch(done);
+  });
+});
+//***************************DELETE TEST********************************************
+describe('testing DELETE api/distributer/:id', function() {
+  beforeEach((done)=>{
+    new Soda ({
+      brand: 'Barges',
+      calories: 250,
+      diet: false,
+      taste: 'my favorite',
+    }).save()
+    .then(soda => {
+      this.tempSoda = soda;
+      return new Distributer({
+        company: 'SafeWay',
+        numberofStores: 2234,
+        Seattle: true,
+        sodaID: this.tempSoda._id.toString(),
+      })
+    .save();
+    })
+    .then(distributer => {
+      this.tempDistributer = distributer;
+      done();
+    })
+    .catch(done);
+  });
+  it('should delete distributer with valid ID and return 200', (done) => {
+    superagent.delete(`${baseURL}/api/distributer/${this.tempDistributer._id}`)
+    .then(res => {
+      expect(res.status).to.equal(200);
+      done();
+    })
+    .catch(done);
+  });
+  it.only('should delete distributer with valid ID and return 200', (done) => {
+    superagent.delete(`${baseURL}/api/distributer/noIDhere`)
     .then(done)
     .catch(err => {
       expect(err.status).to.equal(404);

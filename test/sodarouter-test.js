@@ -119,11 +119,4 @@ describe('testing DELETE Route', function(){
     })
     .catch(done);
   });
-
-
-
-
-
-
-
 });
