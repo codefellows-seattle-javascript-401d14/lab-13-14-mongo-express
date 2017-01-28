@@ -50,9 +50,7 @@ describe('testing distributer router', function(){
         done();
       })
       .catch(done);
-      console.log(this.fakeSoda);
+      // console.log(this.fakeSoda);
     });  //end of it block
   });
-
-
 });

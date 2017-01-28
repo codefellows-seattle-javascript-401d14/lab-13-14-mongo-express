@@ -19,7 +19,7 @@ app.use(require('./lib/distributer-router'));
 
 app.use(function(err, req, res, next){
   debug('error middleware');
-  console.error(err.message);
+  console.error(err);
   if (err.status) {
     return res.status(err.status).send();
   }

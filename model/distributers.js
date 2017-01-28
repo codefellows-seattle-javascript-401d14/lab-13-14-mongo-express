@@ -12,14 +12,14 @@ const distributerSchema = mongoose.Schema({
 });
 
 distributerSchema.pre('save', function(next){
+
   Soda.findById(this.sodaID)
   .then(soda => {
-    soda.distributer.push(this._id);
+    soda.distributers.push(this._id);
     return soda.save();
   })
   .then( () => next ())
   .catch(err => next(createError(404, err.message)));
 });
-
 
 module.exports = mongoose.model('distributer', distributerSchema);
